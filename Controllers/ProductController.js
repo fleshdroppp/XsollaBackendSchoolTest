@@ -18,13 +18,13 @@ class ProductController {
             res.status(500).json(error);
         }
     }
-    // async getOne(req, res) {
-    //     try {
+    async getOne(req, res) {
+        try {
             
-    //     } catch (e) {
-    //         res.status(500).json(e);
-    //     }
-    // }
+        } catch (e) {
+            res.status(500).json(e);
+        }
+    }
 }
 
 export default new ProductController();
