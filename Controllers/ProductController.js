@@ -6,7 +6,7 @@ class ProductController {
         try {
             const { sku, name, type, price } = req.body
             const product = await Product.create({ sku, name, type, price })
-            res.json({id: product.id})
+            res.json({ id: product.id })
         } catch (error) {
             res.status(500).json(error)
         }
@@ -25,7 +25,25 @@ class ProductController {
             if (mongoose.isValidObjectId(req.params.id)) {
                 product = await Product.findById(req.params.id)
             } else {
-                product = await Product.findOne({sku: req.params.id})
+                product = await Product.findOne({ sku: req.params.id })
+            }
+            return res.json(product)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    }
+    async update(req, res) {
+        try {
+            let newData = req.body
+            let product = {}
+            if (!newData.sku) {
+                if (mongoose.isValidObjectId(req.params.id)) {
+                    product = await Product.findByIdAndUpdate(req.params.id, newData, { new: true, runValidators: true, context: 'query' })
+                } else {
+                    product = await Product.findOneAndUpdate({ sku: req.params.id }, newData, { new: true, runValidators: true, context: 'query' })
+                }
+            } else {
+                return res.status(400).json("Can't update SKU!")
             }
             return res.json(product)
         } catch (error) {

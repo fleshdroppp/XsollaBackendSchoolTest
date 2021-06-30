@@ -8,6 +8,7 @@ const DB_URL = "mongodb+srv://user123:user123@xsollabackend.srgq8.mongodb.net/my
 
 app.use(express.json());
 app.use('/api', router);
+mongoose.set('useFindAndModify', false);
 
 async function startServer() {
     try {
