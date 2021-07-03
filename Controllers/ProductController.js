@@ -17,10 +17,11 @@ class ProductController {
         try {
             const limit = 10
             let products = []
-            let page = Number(req.params.page)
+            let page = req.params.page
+        
             if (page === undefined) {
                 products = await Product.find()
-            } else if (page >= 0) {
+            } else if (Number(page) >= 0) {
                 products = await Product.find().skip(limit * page).limit(limit)
             } else {
                 return res.status(400).json("Not valid page!")
