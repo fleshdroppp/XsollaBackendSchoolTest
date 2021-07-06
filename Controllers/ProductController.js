@@ -1,6 +1,5 @@
 import Product from '../Schemas/product.js';
 import mongoose from 'mongoose';
-import e from 'express';
 
 class ProductController {
     async create(req, res) {
